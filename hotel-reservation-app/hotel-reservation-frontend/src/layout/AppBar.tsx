@@ -10,7 +10,7 @@ import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { Home } from "@mui/icons-material";
 import { Button, Icon } from "@mui/material";
 import { UserContext } from "../contexts/user";
-
+import Cookies from "js-cookies";
 function UserMenu() {
   const user = React.useContext(UserContext);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
@@ -48,8 +48,11 @@ function UserMenu() {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
-        <MenuItem onClick={() => (window.location.pathname = "/reservations")}>
-          <Button style={{ textTransform: "none" }}>
+        <MenuItem onClick={() =>onClick={() => {
+sessionStorage.removeItem("userInfo");
+window.location.href =
+`/auth/logout?session_hint=${Cookies.get('session_hint')}`;
+ }}>
             <Typography textAlign="center">My Reservations</Typography>
           </Button>
         </MenuItem>
